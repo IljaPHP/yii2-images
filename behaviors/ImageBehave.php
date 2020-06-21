@@ -81,7 +81,12 @@ class ImageBehave extends Behavior
         $image->name = $name;
 
         $image->urlAlias = $this->getAlias($image);
-
+        $images = $this->owner->getImages();
+        $lastOrder = null;
+        if ($images) {
+            $lastOrder = $images[array_key_last($images)]->getSort();
+            $image->setSort($lastOrder+1);
+        }
         if(!$image->save()){
             return false;
         }
@@ -94,6 +99,7 @@ class ImageBehave extends Behavior
             throw new \Exception(array_shift($ar));
         }
         $img = $this->owner->getImage();
+
 
         //If main image not exists
         if(
@@ -186,7 +192,28 @@ class ImageBehave extends Behavior
         if(!$imageRecords && $this->getModule()->placeHolderPath){
             return [$this->getModule()->getPlaceHolder()];
         }
+        if(is_array($imageRecords)){
+            $imageRecords = $this->sortImages($imageRecords);
+        }
         return $imageRecords;
+    }
+
+    /**
+     * Sorts images by sort field
+     *
+     * @param array $images
+     *
+     * @return array
+     */
+    private function sortImages(array $images)
+    {
+        if($images && count($images) > 1){
+            usort($images, static function ($imageOne, $imageTwo){
+                return $imageOne->getSort() <=> $imageTwo->getSort();
+            });
+        }
+
+        return $images;
     }
 
     /**
