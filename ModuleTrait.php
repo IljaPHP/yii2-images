@@ -20,10 +20,11 @@ trait ModuleTrait
 
     /**
      * @return null|\rico\yii2images\Module
+     * @throws \yii\base\Exception
      */
     protected function getModule()
     {
-        if ($this->_module == null) {
+        if ($this->_module === null) {
             $this->_module = \Yii::$app->getModule('yii2images');
         }
 
