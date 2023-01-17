@@ -20,8 +20,8 @@ use yii;
 class PlaceHolder extends Image
 {
 
-    private $modelName = '';
-    private $itemId = '';
+    protected $modelName = '';
+    protected $itemId = '';
     public $filePath = 'placeHolder.png';
     public $urlAlias = 'placeHolder';
 
@@ -49,10 +49,10 @@ class PlaceHolder extends Image
         return $url;
     }
 
-    protected  function getSubDur(){
+    protected  function getSubDur():string{
         return 'placeHolder';
     }
-    public function setMain($isMain = true){
+    public function setMain($isMain = true):void{
         throw new yii\base\Exception('You must not set placeHolder as main image!!!');
     }
 
