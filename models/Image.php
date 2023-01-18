@@ -60,7 +60,7 @@ class Image extends \yii\db\ActiveRecord
         }
     }
 
-    public function setSort(int $sort)
+    public function setSort(int $sort):void
     {
         $this->sort = $sort;
     }
@@ -72,6 +72,19 @@ class Image extends \yii\db\ActiveRecord
     {
         return $this->sort;
     }
+
+   public function setName(string $name):void
+   {
+      $this->name = $name;
+   }
+
+   /**
+    * @return string|null
+    */
+   public function getName()
+   {
+      return $this->name;
+   }
 
     public function clearCache()
     {
